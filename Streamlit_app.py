@@ -33,10 +33,10 @@ def process_camera_snapshot():
 
 def main():
     # image = Image.open('https://github.com/AbQadirr/CI_APP/blob/main/MediTi.png')
-    st.image(
-            image,
-            width=400, # Manually Adjust the width of the image as per requirement
-        )
+    # st.image(
+    #         image,
+    #         width=400, # Manually Adjust the width of the image as per requirement
+    #     )
 
     st.title("Image Comparing Streamlit App")
 
