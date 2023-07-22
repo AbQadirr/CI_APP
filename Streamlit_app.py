@@ -138,7 +138,7 @@
 
 
 import streamlit as st
-import av
+import cv2
 import numpy as np
 from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 
@@ -148,7 +148,8 @@ RESIZE_HEIGHT = 480
 
 class SnapshotTransformer(VideoTransformerBase):
     def transform(self, frame):
-        image = frame.to_ndarray(format="rgb24")
+        image = frame.to_ndarray(format="bgr24")
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         image = cv2.resize(image, (RESIZE_WIDTH, RESIZE_HEIGHT))
         return image
 
@@ -162,11 +163,9 @@ def main():
     )
 
     if webrtc_ctx.video_transformer:
-        st.image(webrtc_ctx.video_transformer.latest_frame, channels="RGB")
-
         if st.button("Capture Snapshot"):
             snapshot_path = "snapshot.jpg"
-            image = webrtc_ctx.video_transformer.latest_frame.copy()
+            image = webrtc_ctx.video_transformer.get_frame()
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
             cv2.imwrite(snapshot_path, image)
             st.success("Snapshot captured and saved as 'snapshot.jpg'")
@@ -174,7 +173,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-
-if __name__ == "__main__":
-    main()
