@@ -2,7 +2,12 @@ import cv2
 import streamlit as st
 from PIL import Image
 from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
-
+RTC_CONFIGURATION = {
+    "iceServers": [
+        {"urls": ["stun:stun.l.google.com:19302"]},
+        {"urls": ["stun:stun1.l.google.com:19302"]},
+    ]
+}
 
 RESIZE_WIDTH = 500
 RESIZE_HEIGHT = 300
