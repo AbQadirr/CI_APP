@@ -160,7 +160,7 @@ def main():
     webrtc_ctx = webrtc_streamer(
         key="snapshot",
         video_transformer_factory=SnapshotTransformer,
-        async_transform=False,
+        async_transform=True,
     )
 
     if webrtc_ctx.video_transformer:
