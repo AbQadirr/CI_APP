@@ -3,6 +3,7 @@ import streamlit as st
 from PIL import Image
 from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
 
+
 RESIZE_WIDTH = 500
 RESIZE_HEIGHT = 300
 
@@ -33,6 +34,15 @@ def process_camera_snapshot():
         image.save(snapshot_path)
         return snapshot_path
     return None
+    
+webrtc_ctx = webrtc_streamer(
+    key="WYH",
+    mode=WebRtcMode.SENDRECV,
+    rtc_configuration=RTC_CONFIGURATION,
+    media_stream_constraints={"video": True, "audio": False},
+    video_processor_factory=VideoProcessor,
+    async_processing=True,
+)
 
 def main():
     # image = Image.open('https://github.com/AbQadirr/CI_APP/blob/main/MediTi.png')
