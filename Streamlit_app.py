@@ -159,7 +159,8 @@ def main():
     webrtc_ctx = webrtc_streamer(
         key="snapshot",
         video_transformer_factory=SnapshotTransformer,
-        async_transform=True,
+        async_transform=False,
+        screenshot=True  # Enable screenshots of the webcam stream
     )
 
     if webrtc_ctx.video_transformer:
@@ -169,6 +170,7 @@ def main():
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
             cv2.imwrite(snapshot_path, image)
             st.success("Snapshot captured and saved as 'snapshot.jpg'")
+            st.image(image, channels="RGB", caption="Captured Snapshot")
 
 if __name__ == "__main__":
     main()
