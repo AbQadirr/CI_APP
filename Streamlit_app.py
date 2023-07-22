@@ -69,7 +69,7 @@ def main():
 
     with col1:
         st.subheader("Upload an Image")
-        uploaded_file = st.file_uploader("&nbsp;", type=["jpg", "jpeg", "png"], accept_multiple_files=False, help="", label_visibility='hidden')
+        uploaded_file = st.file_uploader("&nbsp;", type=["jpg", "jpeg", "png"], accept_multiple_files=False, help="", label_visibility='visible')
         if uploaded_file is not None:
             image_path = process_uploaded_image(uploaded_file)
 
