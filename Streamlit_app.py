@@ -32,7 +32,7 @@ def process_camera_snapshot():
     return None
 
 def main():
-    image = Image.open('C:\opencv\main\MediTi.png')
+    image = Image.open('https://github.com/AbQadirr/CI_APP/blob/main/MediTi.png')
     st.image(
             image,
             width=400, # Manually Adjust the width of the image as per requirement
