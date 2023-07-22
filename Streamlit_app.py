@@ -40,13 +40,13 @@ def process_camera_snapshot():
         return snapshot_path
     return None
     
-webrtc_ctx = webrtc_streamer(
-    key="WYH",
-    mode=WebRtcMode.SENDRECV,
-    rtc_configuration=RTC_CONFIGURATION,
-    media_stream_constraints={"video": True, "audio": False},
-    async_processing=True,
-)
+# webrtc_ctx = webrtc_streamer(
+#     key="WYH",
+#     mode=WebRtcMode.SENDRECV,
+#     rtc_configuration=RTC_CONFIGURATION,
+#     media_stream_constraints={"video": True, "audio": False},
+#     async_processing=True,
+# )
 
 def main():
     # image = Image.open('https://github.com/AbQadirr/CI_APP/blob/main/MediTi.png')
