@@ -29,7 +29,7 @@ def process_uploaded_image(uploaded_file):
 
 
 def process_camera_snapshot():
-    video_capture = cv2.VideoCapture(cv2.CAP_V4L2)
+    video_capture = cv2.VideoCapture(cv2.CAP_ANY)
     ret, frame = video_capture.read()
     if ret:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
