@@ -29,7 +29,7 @@ def process_uploaded_image(uploaded_file):
 
 
 def process_camera_snapshot():
-    video_capture = cv2.VideoCapture(cv2.CAP_DHSOW)
+    video_capture = cv2.VideoCapture(cv2.CAP_DSOW)
     while(video_capture.isOpened()):       
         ret, frame = video_capture.read()
         if ret:
