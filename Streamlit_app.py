@@ -146,13 +146,15 @@ RESIZE_WIDTH = 640
 RESIZE_HEIGHT = 480
 
 def capture_snapshot():
-    video_capture = cv2.VideoCapture(0)
-    ret, frame = video_capture.read()
-    if ret:
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        image = Image.fromarray(frame)
-        image = image.resize((RESIZE_WIDTH, RESIZE_HEIGHT))
-        return image
+    for camera_index in range(10):  # Try indices from 0 to 9
+        video_capture = cv2.VideoCapture(camera_index)
+        if video_capture.isOpened():
+            ret, frame = video_capture.read()
+            if ret:
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                image = Image.fromarray(frame)
+                image = image.resize((RESIZE_WIDTH, RESIZE_HEIGHT))
+                return image
     return None
 
 def main():
