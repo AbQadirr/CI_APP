@@ -29,17 +29,18 @@ def process_uploaded_image(uploaded_file):
 
 
 def process_camera_snapshot():
-    video_capture = cv2.VideoCapture(0)
-    ret, frame = video_capture.read()
-    if ret:
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        image = Image.fromarray(frame)
-        image = image.resize((RESIZE_WIDTH, RESIZE_HEIGHT))
-        snapshot_path = "snapshot.jpg"  # Save the resized snapshot image to a file
-        image.save(snapshot_path)
-        return snapshot_path
-    return None
-    
+    video_capture = cv2.VideoCapture(0+ cv2.CAP_DSHOW)
+    while(video_capture.isOpened()):       
+        ret, frame = video_capture.read()
+        if ret:
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            image = Image.fromarray(frame)
+            image = image.resize((RESIZE_WIDTH, RESIZE_HEIGHT))
+            snapshot_path = "snapshot.jpg"  # Save the resized snapshot image to a file
+            image.save(snapshot_path)
+            return snapshot_path
+        return None
+        
 # webrtc_ctx = webrtc_streamer(
 #     key="WYH",
 #     mode=WebRtcMode.SENDRECV,
