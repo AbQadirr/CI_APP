@@ -1,6 +1,7 @@
 import cv2
 import streamlit as st
 from PIL import Image
+from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
 
 RESIZE_WIDTH = 500
 RESIZE_HEIGHT = 300
@@ -18,6 +19,8 @@ def process_uploaded_image(uploaded_file):
         image.save(image_path)
         return image_path
     return None
+
+
 
 def process_camera_snapshot():
     video_capture = cv2.VideoCapture(cv2.CAP_V4L2)
