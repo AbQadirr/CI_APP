@@ -139,37 +139,32 @@
 
 import streamlit as st
 import cv2
-import numpy as np
-from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
+from PIL import Image
 
 # Define RESIZE_WIDTH and RESIZE_HEIGHT according to your requirements
 RESIZE_WIDTH = 640
 RESIZE_HEIGHT = 480
 
-class SnapshotTransformer(VideoTransformerBase):
-    def transform(self, frame):
-        image = frame.to_ndarray(format="bgr24")
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        image = cv2.resize(image, (RESIZE_WIDTH, RESIZE_HEIGHT))
+def capture_snapshot():
+    video_capture = cv2.VideoCapture(0)
+    ret, frame = video_capture.read()
+    if ret:
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        image = Image.fromarray(frame)
+        image = image.resize((RESIZE_WIDTH, RESIZE_HEIGHT))
         return image
+    return None
 
 def main():
     st.title("Webcam Snapshot Capture")
 
-    webrtc_ctx = webrtc_streamer(
-        key="snapshot",
-        video_transformer_factory=SnapshotTransformer,
-        async_transform=False,
-    )
-
-    if webrtc_ctx.video_transformer:
-        if st.button("Capture Snapshot"):
+    if st.button("Capture Snapshot"):
+        snapshot = capture_snapshot()
+        if snapshot is not None:
             snapshot_path = "snapshot.jpg"
-            image = webrtc_ctx.video_transformer.get_frame()
-            image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-            cv2.imwrite(snapshot_path, image)
+            snapshot.save(snapshot_path)
             st.success("Snapshot captured and saved as 'snapshot.jpg'")
-            st.image(image, channels="RGB", caption="Captured Snapshot")
+            st.image(snapshot, channels="RGB", caption="Captured Snapshot")
 
 if __name__ == "__main__":
     main()
