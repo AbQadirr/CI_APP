@@ -134,7 +134,8 @@ def main():
             st.markdown(f"<div style='display: flex; justify-content: center;'><div style='text-align: center; background-color: white; padding: 5px 20px; border-radius: 5px; max-width: {200}px'><strong><span style='color: black'>Images doesn't Match.</span></strong></div></div>", unsafe_allow_html=True)
             # st.write("Images are different.")
 
-
+if __name__ == "__main__":
+    main()
 
 
 # import streamlit as st
