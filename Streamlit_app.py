@@ -160,7 +160,6 @@ def main():
         key="snapshot",
         video_transformer_factory=SnapshotTransformer,
         async_transform=False,
-        screenshot=True  # Enable screenshots of the webcam stream
     )
 
     if webrtc_ctx.video_transformer:
