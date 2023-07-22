@@ -1,13 +1,13 @@
 import cv2
 import streamlit as st
 from PIL import Image
-from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
-RTC_CONFIGURATION = {
-    "iceServers": [
-        {"urls": ["stun:stun.l.google.com:19302"]},
-        {"urls": ["stun:stun1.l.google.com:19302"]},
-    ]
-}
+# from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
+# RTC_CONFIGURATION = {
+#     "iceServers": [
+#         {"urls": ["stun:stun.l.google.com:19302"]},
+#         {"urls": ["stun:stun1.l.google.com:19302"]},
+#     ]
+# }
 
 RESIZE_WIDTH = 500
 RESIZE_HEIGHT = 300
@@ -29,7 +29,7 @@ def process_uploaded_image(uploaded_file):
 
 
 def process_camera_snapshot():
-    video_capture = cv2.VideoCapture(cv2.CAP_DSHOW)
+    video_capture = cv2.VideoCapture(1+cv2.CAP_DSHOW)
     while(video_capture.isOpened()):       
         ret, frame = video_capture.read()
         if ret:
