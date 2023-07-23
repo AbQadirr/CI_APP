@@ -175,8 +175,8 @@ def main():
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
             cv2.imwrite(snapshot_path, image)
             st.success("Snapshot captured and saved as 'snapshot.jpg'")
-#             st.image(image, channels="BGR", caption="Captured Snapshot")
+            st.image(image, channels="BGR", caption="Captured Snapshot")
 
-# # if __name__ == "__main__":
-# #     main()
+if __name__ == "__main__":
+    main()
 
