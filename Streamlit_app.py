@@ -1,6 +1,3 @@
-import cv2
-from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
-
 # import cv2
 # import streamlit as st
 # from PIL import Image
@@ -18,16 +15,7 @@ from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
 
 
 
-class VideoTransformer(VideoTransformerBase):
-    def transform(self, frame):
-        img = frame.to_ndarray(format="bgr24")
-
-        img = cv2.cvtColor(cv2.Canny(img, 100, 200), cv2.COLOR_GRAY2BGR)
-
-        return img
-
-
-webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
+ 
 
 
 # def process_uploaded_image(uploaded_file):
@@ -155,40 +143,40 @@ webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
 #     main()
 
 
-# import streamlit as st
-# import cv2
-# import numpy as np
-# from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
+import streamlit as st
+import cv2
+import numpy as np
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 
-# # Define RESIZE_WIDTH and RESIZE_HEIGHT according to your requirements
-# RESIZE_WIDTH = 640
-# RESIZE_HEIGHT = 480
+# Define RESIZE_WIDTH and RESIZE_HEIGHT according to your requirements
+RESIZE_WIDTH = 640
+RESIZE_HEIGHT = 480
 
-# class SnapshotTransformer(VideoTransformerBase):
-#     def transform(self, frame):
-#         image = frame.to_ndarray(format="bgr24")
-#         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-#         image = cv2.resize(image, (RESIZE_WIDTH, RESIZE_HEIGHT))
-#         return image
+class SnapshotTransformer(VideoTransformerBase):
+    def transform(self, frame):
+        image = frame.to_ndarray(format="bgr24")
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = cv2.resize(image, (RESIZE_WIDTH, RESIZE_HEIGHT))
+        return image
 
-# def main():
-#     st.title("Webcam Snapshot Capture")
+def main():
+    st.title("Webcam Snapshot Capture")
 
-#     webrtc_ctx = webrtc_streamer(
-#         key="snapshot",
-#         video_transformer_factory=SnapshotTransformer,
-#         async_transform=True,
-#     )
+    webrtc_ctx = webrtc_streamer(
+        key="snapshot",
+        video_transformer_factory=SnapshotTransformer,
+        async_transform=True,
+    )
 
-#     if webrtc_ctx.video_transformer:
-#         if st.button("Capture Snapshot"):
-#             snapshot_path = "snapshot.jpg"
-#             image = webrtc_ctx.video_transformer.last_frame
-#             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-#             cv2.imwrite(snapshot_path, image)
-#             st.success("Snapshot captured and saved as 'snapshot.jpg'")
+    if webrtc_ctx.video_transformer:
+        if st.button("Capture Snapshot"):
+            snapshot_path = "snapshot.jpg"
+            image = webrtc_ctx.video_transformer.last_frame
+            image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+            cv2.imwrite(snapshot_path, image)
+            st.success("Snapshot captured and saved as 'snapshot.jpg'")
 #             st.image(image, channels="BGR", caption="Captured Snapshot")
 
-# if __name__ == "__main__":
-#     main()
+# # if __name__ == "__main__":
+# #     main()
 
