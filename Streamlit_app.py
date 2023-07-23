@@ -48,7 +48,7 @@ def process_camera_snapshot():
         
 webrtc_ctx = webrtc_streamer(
     key="WYH",
-    mode=WebRtcMode.SENDRECV,
+    mode=WebRtcMode.SENDONLY,
     rtc_configuration=RTC_CONFIGURATION,
     media_stream_constraints={"video": True, "audio": False},
     async_processing=True,
