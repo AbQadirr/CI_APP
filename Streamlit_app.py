@@ -1,4 +1,5 @@
 import streamlit as st
+import cv2
 from PIL import Image
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
 from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
