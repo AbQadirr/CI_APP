@@ -1,4 +1,4 @@
-import cv2
+XEimport cv2
 import streamlit as st
 from PIL import Image
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
@@ -45,14 +45,17 @@ def process_camera_snapshot():
             image.save(snapshot_path)
             return snapshot_path
         return None
-        
-webrtc_ctx = webrtc_streamer(
-    key="WYH",
-    mode=WebRtcMode.SENDONLY,
-    rtc_configuration=RTC_CONFIGURATION,
-    media_stream_constraints={"video": True, "audio": False},
-    async_processing=True,
-)
+try:
+    webrtc_ctx = webrtc_streamer(
+        key="WYH",
+        mode=WebRtcMode.SENDONLY,
+        rtc_configuration=RTC_CONFIGURATION,
+        media_stream_constraints={"video": True, "audio": False},
+        async_processing=True,
+    )
+except Exception as e:
+    # handle the exception here
+    print(f"An error occurred: {e}")
 
 def main():
     # image = Image.open('https://github.com/AbQadirr/CI_APP/blob/main/MediTi.png')
