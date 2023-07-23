@@ -18,8 +18,6 @@ from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
 
 
 
-
-
 class VideoTransformer(VideoTransformerBase):
     def transform(self, frame):
         img = frame.to_ndarray(format="bgr24")
