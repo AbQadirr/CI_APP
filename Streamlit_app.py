@@ -1,14 +1,7 @@
 import streamlit as st
 import cv2
 from PIL import Image
-from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
-from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
-RTC_CONFIGURATION = {
-    "iceServers": [
-        {"urls": ["stun:stun.l.google.com:19302"]},
-        {"urls": ["stun:stun1.l.google.com:19302"]},
-    ]
-}
+
 
 RESIZE_WIDTH = 500
 RESIZE_HEIGHT = 300
@@ -34,30 +27,21 @@ def process_uploaded_image(uploaded_file):
 
 
 def process_camera_snapshot():
-    video_capture = cv2.VideoCapture(0+cv2.CAP_DSHOW)
-    while(video_capture.isOpened()):
-        ret, frame = video_capture.read()
-        if ret:
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            image = Image.fromarray(frame)
-            image = image.resize((RESIZE_WIDTH, RESIZE_HEIGHT))
-            snapshot_path = "snapshot.jpg"  # Save the resized snapshot image to a file
-            image.save(snapshot_path)
-            return snapshot_path
-        return None
-try:
-    webrtc_ctx = webrtc_streamer(
-        key="WYH",
-        mode=WebRtcMode.SENDONLY,
-        rtc_configuration=RTC_CONFIGURATION,
-        media_stream_constraints={"video": True, "audio": False},
-        async_processing=True,
-    )
-except Exception as e:
-    # handle the exception here
-    print(f"An error occurred: {e}")
+    video_capture = cv2.VideoCapture(0)
+    # while(video_capture.isOpened()):
+    ret, frame = video_capture.read()
+    if ret:
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        image = Image.fromarray(frame)
+        image = image.resize((RESIZE_WIDTH, RESIZE_HEIGHT))
+        snapshot_path = "snapshot.jpg"  # Save the resized snapshot image to a file
+        image.save(snapshot_path)
+        return snapshot_path
+    return None
+
 
 def main():
+        
     # image = Image.open('https://github.com/AbQadirr/CI_APP/blob/main/MediTi.png')
     # st.image(
     #         image,
@@ -144,8 +128,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
 # import streamlit as st
 # import cv2
 # import numpy as np
