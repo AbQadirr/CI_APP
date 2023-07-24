@@ -37,7 +37,7 @@ def process_camera_snapshot():
    snapshot_path = "snapshot.jpg"  # Save the resized snapshot image to a file
    image.save(snapshot_path)
    return snapshot_path
-return None
+ return None
 
 
 def main():
