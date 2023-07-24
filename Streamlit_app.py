@@ -27,7 +27,7 @@ def process_uploaded_image(uploaded_file):
 
 
 def process_camera_snapshot():
-  video_capture = cv2.CaptureFromCAM(0+cv2.CAP_V4L2)
+  video_capture = cv2.VidoCapture(0+cv2.CAP_V4L2)
    # while(video_capture.isOpened()):
   ret, frame = video_capture.read()
   if ret:
