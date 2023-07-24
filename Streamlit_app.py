@@ -41,14 +41,19 @@ def process_uploaded_image(uploaded_file):
 def process_camera_snapshot():
     rtc_configuration = RTCConfiguration(
         {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+        media_stream_constraints={"video": True, "audio": False},
     )
+
     webrtc_ctx = webrtc_streamer(
         key="snapshot",
         rtc_configuration=rtc_configuration,
         video_transformer_factory=WebcamTransformer,
+        async_transform=True,  # Set async_transform to True
     )
-    if webrtc_ctx.video_transformer:
+
+    if webrtc_ctx.video_transformer and webrtc_ctx.video_transformer.frame_out is not None:
         return Image.fromarray(webrtc_ctx.video_transformer.frame_out)
+
     return None
 
 
