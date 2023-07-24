@@ -1,11 +1,23 @@
 import streamlit as st
 import cv2
 from PIL import Image
+from streamlit_webrtc import VideoTransformerBase, webrtc_streamer, RTCConfiguration, WebRtcMode
+import av
 
 
 RESIZE_WIDTH = 500
 RESIZE_HEIGHT = 300
 
+class WebcamTransformer(VideoTransformerBase):
+    def __init__(self):
+        self.video_capture = cv2.VideoCapture(0)
+
+    def transform(self, frame):
+        ret, img = self.video_capture.read()
+        if ret:
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            return img
+        return frame
 
 
  
@@ -27,18 +39,20 @@ def process_uploaded_image(uploaded_file):
 
 
 def process_camera_snapshot():
-  video_capture = cv2.VideoCapture(0+cv2.CAP_V4L2)
-   # while(video_capture.isOpened()):
-  ret, frame = video_capture.read()
-  if ret:
-   frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-   image = Image.fromarray(frame)
-   image = image.resize((RESIZE_WIDTH, RESIZE_HEIGHT))
-   snapshot_path = "snapshot.jpg"  # Save the resized snapshot image to a file
-   image.save(snapshot_path)
-   return snapshot_path
-   
-  return None
+    rtc_configuration = RTCConfiguration(
+        {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+        mode=WebRtcMode.SENDRECV,
+    )
+    webrtc_ctx = webrtc_streamer(
+        key="snapshot",
+        mode=WebRtcMode.SENDRECV,
+        rtc_configuration=rtc_configuration,
+        video_transformer_factory=WebcamTransformer,
+    )
+    if webrtc_ctx.video_transformer:
+        return Image.fromarray(webrtc_ctx.video_transformer.frame_out)
+    return None
+
 
 
 def main():
