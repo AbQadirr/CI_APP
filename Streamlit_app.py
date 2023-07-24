@@ -99,14 +99,6 @@ def main():
             st.image(snapshot_path, caption="Snapshot")    
 
 
-        st.write(
-            """
-            <script>
-            navigator.mediaDevices.getUserMedia({ video: { mediaSource: "screen" } });
-            </script>
-            """
-        )
-
 
 if __name__ == "__main__":
     main()
