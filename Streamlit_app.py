@@ -15,7 +15,7 @@ def main():
     st.title("Webcam Stream with OpenCV and Streamlit")
 
     webrtc_ctx = webrtc_streamer(
-        key="example",
+        key="example-webcam",
         video_transformer_factory=WebcamTransformer,
         async_transform=True,
     )
