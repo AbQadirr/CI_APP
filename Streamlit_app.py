@@ -41,11 +41,9 @@ def process_uploaded_image(uploaded_file):
 def process_camera_snapshot():
     rtc_configuration = RTCConfiguration(
         {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
-        mode=WebRtcMode.SENDRECV,
     )
     webrtc_ctx = webrtc_streamer(
         key="snapshot",
-        mode=WebRtcMode.SENDRECV,
         rtc_configuration=rtc_configuration,
         video_transformer_factory=WebcamTransformer,
     )
